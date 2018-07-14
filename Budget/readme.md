@@ -1,8 +1,8 @@
-#Progress#
-[x] Backend List CRUD
-[] Persistence
-[] Ui
+# Progress
+- [X] Backend List CRUD
+- [ ] Persistence
+- [ ] Ui
 
-#Feature List#
+# Feature List
 1. Set/Edit Budget Amount
 2. CRUD Budget Items
