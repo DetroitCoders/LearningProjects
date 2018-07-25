@@ -1,17 +1,70 @@
 var activeBudget;
 
-function draw() {
-  console.log("- My Budget -");
-  console.log("-------------");
+window.addEventListener('budgetChange', function() {
+  draw();
+});
 
+function draw() {
+  console.log('-'.repeat(75));
+  console.log(' '.repeat(35) + 'Budget');
+  console.log('-'.repeat(75));
+  console.log('ID' + ' '.repeat(35) + '| Description     | Value');
   activeBudget
     .getItems()
     .forEach(item =>
-      console.log(item.id + " - " + item.description + " - " + item.value)
+      console.log(
+        item.id +
+          ' | ' +
+          item.description.padEnd(15) +
+          ' | ' +
+          formatCurrency(item.value)
+      )
     );
 
-  console.log("-------------");
-  console.log(activeBudget.getTotal());
+  console.log(
+    'Total'.padEnd(55) + '| ' + formatCurrency(activeBudget.getTotal())
+  );
+  console.log('-'.repeat(75));
+
+  drawHtml();
+}
+
+function drawHtml() {
+  var tree = document.createDocumentFragment();
+
+  activeBudget.getItems().forEach(item => {
+    var tr = document.createElement('tr');
+
+    var colDescription = document.createElement('td');
+    colDescription.innerHTML = item.description;
+
+    var colValue = document.createElement('td');
+    colValue.classList.add('has-text-right');
+    colValue.innerHTML = formatCurrency(item.value);
+
+    tr.appendChild(colDescription);
+    tr.appendChild(colValue);
+
+    tree.appendChild(tr);
+  });
+
+  var tblItems = document.getElementById('tblItems');
+
+  while (tblItems.firstChild) {
+    tblItems.removeChild(tblItems.firstChild);
+  }
+
+  tblItems.appendChild(tree);
+  document.getElementById('lblTotal').innerText = formatCurrency(
+    activeBudget.getTotal()
+  );
+}
+
+function formatCurrency(value) {
+  return new Intl.NumberFormat('en', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(value);
 }
 
 class Budget {
@@ -19,8 +72,13 @@ class Budget {
     this.items = [];
   }
 
+  onBudgetChange() {
+    window.dispatchEvent(new Event('budgetChange'));
+  }
+
   addItem(budgetItem) {
     this.items.push(budgetItem);
+    this.onBudgetChange();
   }
 
   removeItem(itemId) {
@@ -31,6 +89,8 @@ class Budget {
     if (itemIndex === -1) return;
 
     this.items.splice(itemIndex, 1);
+
+    this.onBudgetChange();
   }
 
   getItems() {
@@ -49,92 +109,41 @@ class Budget {
 
 class BudgetItem {
   constructor(description, value) {
-    this.id = +new Date();
+    this.id = this.guid();
     this.description = description;
     this.value = value;
+  }
+
+  guid() {
+    return (
+      this.s4() +
+      this.s4() +
+      '-' +
+      this.s4() +
+      '-' +
+      this.s4() +
+      '-' +
+      this.s4() +
+      '-' +
+      this.s4() +
+      this.s4() +
+      this.s4()
+    );
+  }
+
+  s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
   }
 }
 
 (function() {
-  console.log("Hello From Budget!");
+  console.log('Hello From Budget!');
   activeBudget = new Budget();
 
   // Bootstrap with sample data
-  activeBudget.addItem(new BudgetItem("Cell Phone", 80));
-
-  setTimeout(() => {
-    activeBudget.addItem(new BudgetItem("Rent", 800));
-  }, 1000);
-
-  setTimeout(() => {
-    activeBudget.addItem(new BudgetItem("Soda", 15.75));
-  }, 2000);
-
-  setTimeout(() => draw(), 2250);
-
-  // Trial: Creating Dynamic HTML
-  setTimeout(() => {
-    var tree = document.createDocumentFragment();
-    var itemlist = activeBudget.getItems();
-
-    // Row 1 setup
-    var div1 = document.createElement("div");
-    div1.setAttribute("class", "row");
-
-    var div1col1 = document.createElement("div");
-    div1col1.setAttribute("class", "col");
-    div1col1.innerHTML = itemlist[0].id;
-    var div1col2 = document.createElement("div");
-    div1col2.setAttribute("class", "col-6");
-    div1col2.innerHTML = itemlist[0].description;
-    var div1col3 = document.createElement("div");
-    div1col3.setAttribute("class", "col");
-    div1col3.innerHTML = itemlist[0].value;
-
-    div1.appendChild(div1col1);
-    div1.appendChild(div1col2);
-    div1.appendChild(div1col3);
-
-    // Row 2 setup
-    var div2 = document.createElement("div");
-    div2.setAttribute("class", "row");
-
-    var div2col1 = document.createElement("div");
-    div2col1.setAttribute("class", "col");
-    div2col1.innerHTML = itemlist[1].id;
-    var div2col2 = document.createElement("div");
-    div2col2.setAttribute("class", "col-6");
-    div2col2.innerHTML = itemlist[1].description;
-    var div2col3 = document.createElement("div");
-    div2col3.setAttribute("class", "col");
-    div2col3.innerHTML = itemlist[1].value;
-
-    div2.appendChild(div2col1);
-    div2.appendChild(div2col2);
-    div2.appendChild(div2col3);
-
-    // Row 3 setup
-    var div3 = document.createElement("div");
-    div3.setAttribute("class", "row");
-
-    var div3col1 = document.createElement("div");
-    div3col1.setAttribute("class", "col");
-    div3col1.innerHTML = itemlist[2].id;
-    var div3col2 = document.createElement("div");
-    div3col2.setAttribute("class", "col-6");
-    div3col2.innerHTML = itemlist[2].description;
-    var div3col3 = document.createElement("div");
-    div3col3.setAttribute("class", "col");
-    div3col3.innerHTML = itemlist[2].value;
-
-    div3.appendChild(div3col1);
-    div3.appendChild(div3col2);
-    div3.appendChild(div3col3);
-
-    // Add all 3 rows to main div
-    tree.appendChild(div1);
-    tree.appendChild(div2);
-    tree.appendChild(div3);
-    document.getElementById("main").appendChild(tree);
-    }, 5000);
+  activeBudget.addItem(new BudgetItem('Cell Phone', 80));
+  activeBudget.addItem(new BudgetItem('Rent', 800));
+  activeBudget.addItem(new BudgetItem('Soda', 15.75));
 })();
