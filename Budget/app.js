@@ -1,6 +1,19 @@
+//   ******  MY APP CODE  *****    //
+
 var activeBudget;
 
-window.addEventListener('budgetChange', function() {
+function quickAdd(event) {
+  event.preventDefault();
+
+  /// get description element and text
+  ///  get the value element and text
+  /// clear the element = ""
+  /// save the item
+  /// set cursor on the description
+  /// Nice to have / gotta have = Add on enter press --- DONE via BROWSER
+}
+
+window.addEventListener('onBudgetChange', function() {
   draw();
 });
 
@@ -78,14 +91,15 @@ function formatCurrency(value) {
     currency: 'USD'
   }).format(value);
 }
-
+////////////////////////////////////
+//   ******  MY APP CODE  ****    //
 class Budget {
   constructor() {
     this.items = [];
   }
 
   onBudgetChange() {
-    window.dispatchEvent(new Event('budgetChange'));
+    window.dispatchEvent(new Event('onBudgetChange'));
   }
 
   addItem(budgetItem) {
@@ -149,7 +163,7 @@ class BudgetItem {
       .substring(1);
   }
 }
-
+////////////////////////////////////
 (function() {
   console.log('Hello From Budget!');
   activeBudget = new Budget();

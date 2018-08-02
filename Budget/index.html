@@ -34,19 +34,19 @@
         </div>
         <div class="columns">
             <div class="column is-half is-offset-one-quarter">
-                <div class="field is-grouped">
+                <form class="field is-grouped" onsubmit="quickAdd(event)">
                     <p class="control is-expanded">
-                        <input class="input" type="text" placeholder="Description">
+                        <input id="qaDescription" class="input" type="text" placeholder="Description" required>
                     </p>
                     <p class="control is-expanded">
-                        <input class="input" type="text" placeholder="Value">
+                        <input id="qaValue" class="input" type="number" placeholder="Value" min="0.01" step="0.01" required>
                     </p>
                     <p class="control">
-                        <a class="button is-link">
+                        <button class="button is-link" type="submit">
                             Add
-                        </a>
+                        </button>
                     </p>
-                </div>
+                </form>
             </div>
         </div>
 
