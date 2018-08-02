@@ -43,6 +43,7 @@ function drawHtml() {
     colValue.innerHTML = formatCurrency(item.value);
 
     var colRemove = document.createElement('td');
+    colRemove.classList.add('has-text-right');
     var btn = document.createElement("button");
     var t = document.createTextNode("Remove");
     btn.appendChild(t);
