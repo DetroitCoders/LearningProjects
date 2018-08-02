@@ -45,6 +45,9 @@ function drawHtml() {
     var colRemove = document.createElement('td');
     colRemove.classList.add('has-text-right');
     var btn = document.createElement("button");
+    btn.addEventListener("click", function() {
+      activeBudget.removeItem(item.id);
+    });
     var t = document.createTextNode("Remove");
     btn.appendChild(t);
     colRemove.appendChild(btn); 
