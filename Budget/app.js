@@ -42,8 +42,15 @@ function drawHtml() {
     colValue.classList.add('has-text-right');
     colValue.innerHTML = formatCurrency(item.value);
 
+    var colRemove = document.createElement('td');
+    var btn = document.createElement("button");
+    var t = document.createTextNode("Remove");
+    btn.appendChild(t);
+    colRemove.appendChild(btn); 
+
     tr.appendChild(colDescription);
     tr.appendChild(colValue);
+    tr.appendChild(colRemove);
 
     tree.appendChild(tr);
   });
