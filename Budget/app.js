@@ -44,13 +44,14 @@ function drawHtml() {
 
     var colRemove = document.createElement('td');
     colRemove.classList.add('has-text-right');
-    var btn = document.createElement("button");
-    btn.addEventListener("click", function() {
+    var btn = document.createElement('button');
+    btn.classList.add('button', 'is-danger');
+    btn.addEventListener('click', function() {
       activeBudget.removeItem(item.id);
     });
-    var t = document.createTextNode("Remove");
+    var t = document.createTextNode('Remove');
     btn.appendChild(t);
-    colRemove.appendChild(btn); 
+    colRemove.appendChild(btn);
 
     tr.appendChild(colDescription);
     tr.appendChild(colValue);
