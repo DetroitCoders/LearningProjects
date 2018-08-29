@@ -6,10 +6,22 @@ function quickAdd(event) {
   event.preventDefault();
 
   /// get description element and text
+  var description = document.getElementById('qaDescription').value;
+
   ///  get the value element and text
+  var value = document.getElementById('qaValue').value;
+  value = Number(value);
+
   /// clear the element = ""
+  document.getElementById('qaDescription').value = "";
+  document.getElementById('qaValue').value = "";
+
   /// save the item
+  activeBudget.addItem(new BudgetItem(description, value));
+
   /// set cursor on the description
+  document.getElementById('qaDescription').focus();
+
   /// Nice to have / gotta have = Add on enter press --- DONE via BROWSER
 }
 
