@@ -1,6 +1,6 @@
 # Progress
 - [X] Backend List CRUD
-- [ ] Persistence
+- [X] Persistence
 - [X] Ui
 
 # Feature List

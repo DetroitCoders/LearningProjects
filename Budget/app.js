@@ -2,6 +2,34 @@
 
 var activeBudget;
 
+function b64EncodeUnicode(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+      function toSolidBytes(match, p1) {
+          return String.fromCharCode('0x' + p1);
+  }));
+}
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}
+
+function loadDataFromLocalStorage() {
+  if (localStorage.getItem('budgetItems')) {
+    return JSON.parse(b64DecodeUnicode(localStorage.getItem('budgetItems')));
+  } else {
+    return [];
+  }
+}
+
+function saveItemsToLocalStorage() {
+    localStorage.setItem(
+      'budgetItems',
+      b64EncodeUnicode(JSON.stringify(activeBudget.getItems()))
+    );
+}
+
 function quickAdd(event) {
   event.preventDefault();
 
@@ -13,8 +41,8 @@ function quickAdd(event) {
   value = Number(value);
 
   /// clear the element = ""
-  document.getElementById('qaDescription').value = "";
-  document.getElementById('qaValue').value = "";
+  document.getElementById('qaDescription').value = '';
+  document.getElementById('qaValue').value = '';
 
   /// save the item
   activeBudget.addItem(new BudgetItem(description, value));
@@ -26,6 +54,7 @@ function quickAdd(event) {
 }
 
 window.addEventListener('onBudgetChange', function() {
+  saveItemsToLocalStorage();
   draw();
 });
 
@@ -106,8 +135,8 @@ function formatCurrency(value) {
 ////////////////////////////////////
 //   ******  MY APP CODE  ****    //
 class Budget {
-  constructor() {
-    this.items = [];
+  constructor(items) {
+    this.items = items;
   }
 
   onBudgetChange() {
@@ -178,10 +207,11 @@ class BudgetItem {
 ////////////////////////////////////
 (function() {
   console.log('Hello From Budget!');
-  activeBudget = new Budget();
 
-  // Bootstrap with sample data
-  activeBudget.addItem(new BudgetItem('Cell Phone', 80));
-  activeBudget.addItem(new BudgetItem('Rent', 800));
-  activeBudget.addItem(new BudgetItem('Soda', 15.75));
+  var items = loadDataFromLocalStorage();
+
+  activeBudget = new Budget(items);
+
+  // Initial Draw
+  draw();
 })();
