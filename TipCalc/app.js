@@ -20,7 +20,7 @@ function calcTip() {
     var deleteButton = document.createElement('button');
     deleteButton.setAttribute("type", "button");
     deleteButton.setAttribute("class", "btn btn-danger");
-    var deleteId = "deleteTip(" + id + ")";
+    var deleteId = "deleteTip(\'" + id + "\')";
     deleteButton.setAttribute("onclick", deleteId);
     deleteButton.innerText = "Delete";
 
