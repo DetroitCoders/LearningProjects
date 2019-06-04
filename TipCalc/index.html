@@ -22,26 +22,34 @@
 <body>
     <div class="container" id="tipCalcContainer">
         <h1>Tip Calculator</h1>
-        <div class="form-group">
-            <label for="inputBillAmount">How much was your bill?</label>
-            <input type="number" class="form-control" name="billAmount" id="inputBillAmount">
-        </div>
-        <div class="form-group">
-            <label for="inputService">How was your service?</label>
-            <select name="service" id="inputService" class="custom-select">
-                <option selected>-- Choose an Option --</option>
-                <option value="0.25">Excellent -- 25%</option>
-                <option value="0.20">Great -- 20%</option>
-                <option value="0.15">OK -- 15%</option>
-                <option value="0.10">Bad -- 10%</option>
-                <option value="0.00">Horrible -- 0%</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="numOfPeople">How many people are sharing the bill?</label>
-            <input type="number" class="form-control" name="numOfPeople" id="numOfPeople">
-        </div>
-        <button type="button" class="btn btn-primary" onclick="calcTip()">Calculate!</button>
+        <form action="#" class="was-validated">
+            <div class="form-group">
+                <label for="inputBillAmount">How much was your bill?</label>
+                <input type="number" class="form-control" name="billAmount" id="inputBillAmount" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group">
+                <label for="inputService">How was your service?</label>
+                <select name="service" id="inputService" class="custom-select" required>
+                    <option value="0.25">Excellent -- 25%</option>
+                    <option value="0.20">Great -- 20%</option>
+                    <option selected value="0.15">OK -- 15%</option>
+                    <option value="0.10">Bad -- 10%</option>
+                    <option value="0.00">Horrible -- 0%</option>
+                </select>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group">
+                <label for="numOfPeople">How many people are sharing the bill?</label>
+                <input type="number" class="form-control" name="numOfPeople" id="numOfPeople" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="calcTip()">Calculate!</button>
+        </form>
+        <hr>
     </div>
     <script src="app.js"></script>
 </body>
