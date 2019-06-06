@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <!-- My CSS Cascade -->
+    <link rel="stylesheet" href="main.css">
+
+    <title>Sudoku Game</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Sudoku</h1>
+        <p>Please Fill In The Blanks</p>
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <td><input type="number" name="11" id="11" min="1" max="9"></td>
+                    <td><input type="number" name="12" id="12" min="1" max="9"></td>
+                    <td><input type="number" name="13" id="13" min="1" max="9"></td>
+                    <td><input type="number" name="14" id="14" min="1" max="9"></td>
+                    <td><input type="number" name="15" id="15" min="1" max="9"></td>
+                    <td><input type="number" name="16" id="16" min="1" max="9"></td>
+                    <td><input type="number" name="17" id="17" min="1" max="9"></td>
+                    <td><input type="number" name="18" id="18" min="1" max="9"></td>
+                    <td><input type="number" name="19" id="19" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="21" id="21" min="1" max="9"></td>
+                    <td><input type="number" name="22" id="22" min="1" max="9"></td>
+                    <td><input type="number" name="23" id="23" min="1" max="9"></td>
+                    <td><input type="number" name="24" id="24" min="1" max="9"></td>
+                    <td><input type="number" name="25" id="25" min="1" max="9"></td>
+                    <td><input type="number" name="26" id="26" min="1" max="9"></td>
+                    <td><input type="number" name="27" id="27" min="1" max="9"></td>
+                    <td><input type="number" name="28" id="28" min="1" max="9"></td>
+                    <td><input type="number" name="29" id="29" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="31" id="31" min="1" max="9"></td>
+                    <td><input type="number" name="32" id="32" min="1" max="9"></td>
+                    <td><input type="number" name="33" id="33" min="1" max="9"></td>
+                    <td><input type="number" name="34" id="34" min="1" max="9"></td>
+                    <td><input type="number" name="35" id="35" min="1" max="9"></td>
+                    <td><input type="number" name="36" id="36" min="1" max="9"></td>
+                    <td><input type="number" name="37" id="37" min="1" max="9"></td>
+                    <td><input type="number" name="38" id="38" min="1" max="9"></td>
+                    <td><input type="number" name="39" id="39" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="41" id="41" min="1" max="9"></td>
+                    <td><input type="number" name="42" id="42" min="1" max="9"></td>
+                    <td><input type="number" name="43" id="43" min="1" max="9"></td>
+                    <td><input type="number" name="44" id="44" min="1" max="9"></td>
+                    <td><input type="number" name="45" id="45" min="1" max="9"></td>
+                    <td><input type="number" name="46" id="46" min="1" max="9"></td>
+                    <td><input type="number" name="47" id="47" min="1" max="9"></td>
+                    <td><input type="number" name="48" id="48" min="1" max="9"></td>
+                    <td><input type="number" name="49" id="49" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="51" id="51" min="1" max="9"></td>
+                    <td><input type="number" name="52" id="52" min="1" max="9"></td>
+                    <td><input type="number" name="53" id="53" min="1" max="9"></td>
+                    <td><input type="number" name="54" id="54" min="1" max="9"></td>
+                    <td><input type="number" name="55" id="55" min="1" max="9"></td>
+                    <td><input type="number" name="56" id="56" min="1" max="9"></td>
+                    <td><input type="number" name="57" id="57" min="1" max="9"></td>
+                    <td><input type="number" name="58" id="58" min="1" max="9"></td>
+                    <td><input type="number" name="59" id="59" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="61" id="61" min="1" max="9"></td>
+                    <td><input type="number" name="62" id="62" min="1" max="9"></td>
+                    <td><input type="number" name="63" id="63" min="1" max="9"></td>
+                    <td><input type="number" name="64" id="64" min="1" max="9"></td>
+                    <td><input type="number" name="65" id="65" min="1" max="9"></td>
+                    <td><input type="number" name="66" id="66" min="1" max="9"></td>
+                    <td><input type="number" name="67" id="67" min="1" max="9"></td>
+                    <td><input type="number" name="68" id="68" min="1" max="9"></td>
+                    <td><input type="number" name="69" id="69" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="71" id="71" min="1" max="9"></td>
+                    <td><input type="number" name="72" id="72" min="1" max="9"></td>
+                    <td><input type="number" name="73" id="73" min="1" max="9"></td>
+                    <td><input type="number" name="74" id="74" min="1" max="9"></td>
+                    <td><input type="number" name="75" id="75" min="1" max="9"></td>
+                    <td><input type="number" name="76" id="76" min="1" max="9"></td>
+                    <td><input type="number" name="77" id="77" min="1" max="9"></td>
+                    <td><input type="number" name="78" id="78" min="1" max="9"></td>
+                    <td><input type="number" name="79" id="79" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="81" id="81" min="1" max="9"></td>
+                    <td><input type="number" name="82" id="82" min="1" max="9"></td>
+                    <td><input type="number" name="83" id="83" min="1" max="9"></td>
+                    <td><input type="number" name="84" id="84" min="1" max="9"></td>
+                    <td><input type="number" name="85" id="85" min="1" max="9"></td>
+                    <td><input type="number" name="86" id="86" min="1" max="9"></td>
+                    <td><input type="number" name="87" id="87" min="1" max="9"></td>
+                    <td><input type="number" name="88" id="88" min="1" max="9"></td>
+                    <td><input type="number" name="89" id="89" min="1" max="9"></td>
+                </tr>
+                <tr>
+                    <td><input type="number" name="91" id="91" min="1" max="9"></td>
+                    <td><input type="number" name="92" id="92" min="1" max="9"></td>
+                    <td><input type="number" name="93" id="93" min="1" max="9"></td>
+                    <td><input type="number" name="94" id="94" min="1" max="9"></td>
+                    <td><input type="number" name="95" id="95" min="1" max="9"></td>
+                    <td><input type="number" name="96" id="96" min="1" max="9"></td>
+                    <td><input type="number" name="97" id="97" min="1" max="9"></td>
+                    <td><input type="number" name="98" id="98" min="1" max="9"></td>
+                    <td><input type="number" name="99" id="99" min="1" max="9"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" class="btn btn-primary">Check Solution</button>
+        <button type="button" class="btn btn-success">Solve Board</button>
+    </div>
+</body>
+</html>
