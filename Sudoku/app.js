@@ -1,12 +1,15 @@
 function solveBoard() {
-    var gameBoard = new Array(9);
-
-    for (let row = 0; row < 9; row++) {
-        gameBoard[row] = new Array(9);
-        for (let col = 0; col < 9; col++) {
-            gameBoard[row][col] = col + 1;
-        }
-    }
+    var gameBoard = [
+        [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        [7, 8, 9, 1, 2, 3, 4, 5, 6],
+        [4, 5, 6, 7, 8, 9, 1, 2, 3],
+        [3, 1, 2, 8, 4, 5, 9, 6, 7],
+        [6, 9, 7, 3, 1, 2, 8, 4, 5],
+        [8, 4, 5, 6, 9, 7, 3, 1, 2],
+        [2, 3, 1, 5, 7, 4, 6, 9, 8],
+        [9, 6, 8, 2, 3, 1, 5, 7, 4],
+        [5, 7, 4, 9, 6, 8, 2, 3, 1]
+    ];
 
     for (let row = 0, fd = 1; row < 9; row++, fd++) {
         for (let col = 0, sd = 1; col < 9; col++, sd++) {
@@ -25,8 +28,8 @@ function solveBoard() {
             }
     
             // Check if number is unique compared to the others.
-            var numsUnique = true;
-            for (let j = col + 1; (j + col) < 9; j++) {
+            let numsUnique = true;
+            for (let j = col + 1; j < 9; j++) {
                 if (checkNumMatch(gameBoard[rowNumber][col], gameBoard[rowNumber][j])) {
                     numsUnique = false;
                     break;
@@ -41,9 +44,38 @@ function solveBoard() {
         return rowUnique;
     }
 
-    function checkBoard() {
+    function checkColumn(colNumber) {
+        var colUnique = true;
         for (let row = 0; row < 9; row++) {
-            if (!checkRow(row)) {
+            if (!checkNumInRange(gameBoard[row][colNumber])) {
+                colUnique = false;
+                alert("Number not in range");
+                break;
+            }
+
+            let numsUnique = true;
+            for (let j = row + 1; j < 9; j++) {
+                if (checkNumMatch(gameBoard[row][colNumber], gameBoard[j][colNumber])) {
+                    numsUnique = false;
+                    alert("Row " + row + " is equal to " + j);
+                    break;
+                }
+            }
+            if(!numsUnique) {
+                colUnique = false;
+                break;
+            }
+        }
+
+        return colUnique;
+    }
+
+    function checkBoard() {
+        for (let x = 0; x < 9; x++) {
+            if (!checkRow(x)) {
+                return false;
+            }
+            if (!checkColumn(x)) {
                 return false;
             }
         }
