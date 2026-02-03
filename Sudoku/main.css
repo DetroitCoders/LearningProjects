@@ -1,3 +1,21 @@
 input {
     width: 50px;
 }
+
+input.clue {
+    background-color: #e8e8e8;
+    cursor: not-allowed;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Darken borders between 3x3 quadrants */
+td:nth-child(3),
+td:nth-child(6) {
+    border-right: 3px solid #000;
+}
+
+tr:nth-child(3),
+tr:nth-child(6) {
+    border-bottom: 3px solid #000;
+}
