@@ -1,5 +1,5 @@
 // Easy Sudoku puzzle - 0 represents empty cells
-var easyPuzzle = [
+let easyPuzzle = [
     [5, 3, 0, 0, 7, 0, 0, 0, 0],
     [6, 0, 0, 1, 9, 5, 0, 0, 0],
     [0, 9, 8, 0, 0, 0, 0, 6, 0],
@@ -12,7 +12,15 @@ var easyPuzzle = [
 ];
 
 // Initialize board with easy puzzle
-function initializeBoard() {
+async function initializeBoard() {
+    easyPuzzle = await fetchPuzzle("easy");
+
+    if (easyPuzzle === null) {
+        console.error("Failed to initialize board: puzzle is null");
+        alert("Error: Could not load puzzle. Please refresh the page and try again.");
+        return;
+    }
+
     for (let row = 0, fd = 1; row < 9; row++, fd++) {
         for (let col = 0, sd = 1; col < 9; col++, sd++) {
             let placement = fd.toString() + sd.toString();
@@ -26,6 +34,69 @@ function initializeBoard() {
                 inputElement.classList.add('clue');
             }
         }
+    }
+}
+
+// Convert API response format to puzzle array format
+function parsePuzzleResponse(apiResponse) {
+    try {
+        // Preferred format: apiResponse.newboard.grids[0].value (9x9 array)
+        if (apiResponse && apiResponse.newboard && Array.isArray(apiResponse.newboard.grids) && apiResponse.newboard.grids.length > 0) {
+            const grid = apiResponse.newboard.grids[0];
+            if (grid && Array.isArray(grid.value) && grid.value.length === 9 && grid.value.every(r => Array.isArray(r) && r.length === 9)) {
+                // validate cell values are numbers 0-9
+                for (let r = 0; r < 9; r++) {
+                    for (let c = 0; c < 9; c++) {
+                        const v = grid.value[r][c];
+                        if (typeof v !== 'number' || v < 0 || v > 9 || !Number.isFinite(v)) {
+                            console.error('Invalid cell value in newboard.grids[0].value at', r, c, v);
+                            return null;
+                        }
+                    }
+                }
+                return grid.value;
+            }
+        }
+
+        // Fallback: some APIs return a flat puzzle string of length 81 under `puzzle`
+        if (apiResponse && typeof apiResponse.puzzle === 'string' && apiResponse.puzzle.length === 81) {
+            const s = apiResponse.puzzle;
+            const board = [];
+            for (let r = 0; r < 9; r++) {
+                const row = [];
+                for (let c = 0; c < 9; c++) {
+                    const ch = s[r * 9 + c];
+                    const n = (ch === '.' || ch === '0') ? 0 : parseInt(ch, 10);
+                    row.push(Number.isNaN(n) ? 0 : n);
+                }
+                board.push(row);
+            }
+            return board;
+        }
+
+        console.error('Invalid API response format — expected newboard.grids[0].value (9x9) or puzzle string');
+        return null;
+    } catch (error) {
+        console.error('Error parsing puzzle response:', error);
+        return null;
+    }
+}
+
+async function fetchPuzzle(difficulty = "easy") {
+    try {
+        // Use GET to our server endpoint; difficulty is sent as query param
+        const response = await fetch(`/api/puzzle?difficulty=${difficulty}`);
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return parsePuzzleResponse(data);
+    } catch (error) {
+        console.error("Error fetching puzzle:", error);
+        alert("Failed to fetch puzzle. Please try again later.");
+        return null;
     }
 }
 
