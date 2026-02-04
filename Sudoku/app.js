@@ -82,6 +82,46 @@ function parsePuzzleResponse(apiResponse) {
     }
 }
 
+function clearBoard() {
+    for (let row = 0, fd = 1; row < 9; row++, fd++) {
+        for (let col = 0, sd = 1; col < 9; col++, sd++) {
+            let placement = fd.toString() + sd.toString();
+            let inputElement = document.getElementById(placement);
+            inputElement.value = '';
+            inputElement.readOnly = false;
+            inputElement.classList.remove('clue');
+        }
+    }
+
+    easyPuzzle = [];
+}
+
+async function getNewPuzzle(difficulty) {
+    const puzzle = await fetchPuzzle(difficulty);
+    if (puzzle === null) {
+        console.error("Failed to get new puzzle: puzzle is null");
+        alert("Error: Could not load puzzle. Please try again later.");
+        return;
+    }
+
+    clearBoard();
+
+    for (let row = 0, fd = 1; row < 9; row++, fd++) {
+        for (let col = 0, sd = 1; col < 9; col++, sd++) {
+            let placement = fd.toString() + sd.toString();
+            let inputElement = document.getElementById(placement);
+            let value = puzzle[row][col];
+            
+            if (value !== 0) {
+                // Set clue value and make it readonly
+                inputElement.value = value;
+                inputElement.readOnly = true;
+                inputElement.classList.add('clue');
+            }
+        }
+    }
+}
+
 async function fetchPuzzle(difficulty = "easy") {
     try {
         // Use GET to our server endpoint; difficulty is sent as query param
@@ -160,9 +200,18 @@ function solveSudoku(board) {
 
 // Solve the board dynamically and populate the UI
 function solveBoard() {
-    // Create a copy of the puzzle to solve
-    let boardToSolve = easyPuzzle.map(row => [...row]);
-    
+    // Grab current board state from UI
+    let boardToSolve = [];
+    for (let row = 0, fd = 1; row < 9; row++, fd++) {
+        let newRow = [];
+        for (let col = 0, sd = 1; col < 9; col++, sd++) {
+            let placement = fd.toString() + sd.toString();
+            let inputElement = document.getElementById(placement);
+            newRow.push(parseInt(inputElement.value) || 0);
+        }
+        boardToSolve.push(newRow);
+    }
+
     // Solve the puzzle
     if (solveSudoku(boardToSolve)) {
         // Populate the board with the solution
