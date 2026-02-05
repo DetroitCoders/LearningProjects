@@ -21,20 +21,7 @@ async function initializeBoard() {
         return;
     }
 
-    for (let row = 0, fd = 1; row < 9; row++, fd++) {
-        for (let col = 0, sd = 1; col < 9; col++, sd++) {
-            let placement = fd.toString() + sd.toString();
-            let inputElement = document.getElementById(placement);
-            let value = easyPuzzle[row][col];
-            
-            if (value !== 0) {
-                // Set clue value and make it readonly
-                inputElement.value = value;
-                inputElement.readOnly = true;
-                inputElement.classList.add('clue');
-            }
-        }
-    }
+    populateBoard(easyPuzzle);
 
     // Display current game difficulty
     difficultySelected("Easy");
@@ -45,6 +32,24 @@ function difficultySelected(gameDifficulty) {
     if (selectElement) {
         gameDifficulty = gameDifficulty.charAt(0).toUpperCase() + gameDifficulty.slice(1).toLowerCase();
         selectElement.textContent = `Current Difficulty: ${gameDifficulty}`;
+    }
+}
+
+// Populate HTML board
+function populateBoard(board) {
+    for (let row = 0, fd = 1; row < 9; row++, fd++) {
+        for (let col = 0, sd = 1; col < 9; col++, sd++) {
+            let placement = fd.toString() + sd.toString();
+            let inputElement = document.getElementById(placement);
+            let value = board[row][col];
+            
+            if (value !== 0) {
+                // Set clue value and make it readonly
+                inputElement.value = value;
+                inputElement.readOnly = true;
+                inputElement.classList.add('clue');
+            }
+        }
     }
 }
 
@@ -116,23 +121,7 @@ async function getNewPuzzle(difficulty) {
     }
 
     clearBoard();
-
-    for (let row = 0, fd = 1; row < 9; row++, fd++) {
-        for (let col = 0, sd = 1; col < 9; col++, sd++) {
-            let placement = fd.toString() + sd.toString();
-            let inputElement = document.getElementById(placement);
-            let value = puzzle[row][col];
-            
-            if (value !== 0) {
-                // Set clue value and make it readonly
-                inputElement.value = value;
-                inputElement.readOnly = true;
-                inputElement.classList.add('clue');
-            }
-        }
-    }
-
-    // Display current game difficulty
+    populateBoard(puzzle);
     difficultySelected(difficulty);
 }
 
