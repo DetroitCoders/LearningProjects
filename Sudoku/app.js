@@ -35,6 +35,17 @@ async function initializeBoard() {
             }
         }
     }
+
+    // Display current game difficulty
+    difficultySelected("Easy");
+}
+
+function difficultySelected(gameDifficulty) {
+    const selectElement = document.getElementById('gameDifficultyDisplay');
+    if (selectElement) {
+        gameDifficulty = gameDifficulty.charAt(0).toUpperCase() + gameDifficulty.slice(1).toLowerCase();
+        selectElement.textContent = `Current Difficulty: ${gameDifficulty}`;
+    }
 }
 
 // Convert API response format to puzzle array format
@@ -120,6 +131,9 @@ async function getNewPuzzle(difficulty) {
             }
         }
     }
+
+    // Display current game difficulty
+    difficultySelected(difficulty);
 }
 
 async function fetchPuzzle(difficulty = "easy") {
