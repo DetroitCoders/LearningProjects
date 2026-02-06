@@ -19,3 +19,7 @@ tr:nth-child(3),
 tr:nth-child(6) {
     border-bottom: 3px solid #000;
 }
+
+.back-container {
+    margin: 20px;
+}

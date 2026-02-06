@@ -34,11 +34,15 @@ const APP_NAME = properties['app.name'] || 'App';
 const APP_VERSION = properties['app.version'] || '1.0.0';
 const API_KEY = properties['SUDOKU_API_KEY'] || '';
 
-// Serve static files from current directory
-app.use(express.static('./Sudoku'));
-
-// Test API endpoint
-app.get('/test', (req, res) => res.send('Server is alive!'));
+// Join the current directory name with the 'public' folder
+app.use(express.static(path.join(__dirname, 'Public')));
+// This makes everything in 'subfolder' accessible
+app.use('/Public/Budget', express.static(path.join(__dirname, 'Budget')));
+app.use('/Public/Materialize-Learning', express.static(path.join(__dirname, 'Materialize-Learning')));
+app.use('/Public/PricingCalculator', express.static(path.join(__dirname, 'PricingCalculator')));
+app.use('/Public/Sudoku', express.static(path.join(__dirname, 'Sudoku')));
+app.use('/Public/TickTacToe', express.static(path.join(__dirname, 'TickTacToe')));
+app.use('/Public/TipCalc', express.static(path.join(__dirname, 'TipCalc')));
 
 // API endpoint to fetch puzzle
 app.get('/api/sudokuPuzzle', async (req, res) => {
