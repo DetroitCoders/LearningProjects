@@ -128,7 +128,7 @@ async function getNewPuzzle(difficulty) {
 async function fetchPuzzle(difficulty = "easy") {
     try {
         // Use GET to our server endpoint; difficulty is sent as query param
-        const response = await fetch(`/api/puzzle?difficulty=${difficulty}`);
+        const response = await fetch(`/api/sudokuPuzzle?difficulty=${difficulty}`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

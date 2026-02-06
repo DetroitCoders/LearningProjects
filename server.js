@@ -35,10 +35,13 @@ const APP_VERSION = properties['app.version'] || '1.0.0';
 const API_KEY = properties['SUDOKU_API_KEY'] || '';
 
 // Serve static files from current directory
-app.use(express.static('.'));
+app.use(express.static('./Sudoku'));
+
+// Test API endpoint
+app.get('/test', (req, res) => res.send('Server is alive!'));
 
 // API endpoint to fetch puzzle
-app.get('/api/puzzle', async (req, res) => {
+app.get('/api/sudokuPuzzle', async (req, res) => {
   try {
     const difficulty = req.query.difficulty || 'easy';
 

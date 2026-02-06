@@ -1,1 +1,4 @@
 .vs/
+application.properties
+node_modules/
+package-lock.json
